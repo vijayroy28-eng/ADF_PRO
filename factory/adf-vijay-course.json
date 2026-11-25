@@ -1,0 +1,16 @@
+{
+	"name": "adf-vijay-course",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true,
+			"isExplicitlySet": false
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c3cd4976-1ccb-4c68-b12c-42bde0f4d854",
+		"tenantId": "f94c9f6f-f9cb-4f9d-9b86-75ad654548af"
+	}
+}

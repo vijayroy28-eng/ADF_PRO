@@ -1,0 +1,250 @@
+{
+	"name": "rest_API",
+	"properties": {
+		"activities": [
+			{
+				"name": "get_data_from_public_REST_API",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://openlibrary.org/api/books?bibkeys=ISBN:0201558025,LCCN:93005405&format=json"
+				}
+			},
+			{
+				"name": "get_data_from_API",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "get_data_from_public_REST_API",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.01:00:00",
+					"retry": 3,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET"
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['ISBN:0201558025']['bib_key']"
+								},
+								"sink": {
+									"path": "$['ISBN:0201558025']['bib_key']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ISBN:0201558025']['info_url']"
+								},
+								"sink": {
+									"path": "$['ISBN:0201558025']['info_url']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ISBN:0201558025']['preview']"
+								},
+								"sink": {
+									"path": "$['ISBN:0201558025']['preview']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ISBN:0201558025']['preview_url']"
+								},
+								"sink": {
+									"path": "$['ISBN:0201558025']['preview_url']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ISBN:0201558025']['thumbnail_url']"
+								},
+								"sink": {
+									"path": "$['ISBN:0201558025']['thumbnail_url']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LCCN:93005405']['bib_key']"
+								},
+								"sink": {
+									"path": "$['LCCN:93005405']['bib_key']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LCCN:93005405']['info_url']"
+								},
+								"sink": {
+									"path": "$['LCCN:93005405']['info_url']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LCCN:93005405']['preview']"
+								},
+								"sink": {
+									"path": "$['LCCN:93005405']['preview']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LCCN:93005405']['preview_url']"
+								},
+								"sink": {
+									"path": "$['LCCN:93005405']['preview_url']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LCCN:93005405']['thumbnail_url']"
+								},
+								"sink": {
+									"path": "$['LCCN:93005405']['thumbnail_url']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "rest_API_books",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_API_Json",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "get_data_from_ansh_git",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "get_data_from_API",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_git",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_HHTP_SINK",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Web_validate",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "get_data_from_ansh_git",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://raw.githubusercontent.com/anshlambagit/AzureInterviewQuestions/refs/heads/main/orders_data.csv"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-09-15T07:16:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

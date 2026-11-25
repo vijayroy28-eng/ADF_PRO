@@ -1,0 +1,73 @@
+{
+	"name": "key_valut_V2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": {
+						"value": "https://@{pipeline().parameters.p_key_valut_name}.vault.azure.net/secrets/@{pipeline().parameters.p_secrect_info}?api-version=7.0",
+						"type": "Expression"
+					},
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net"
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Web1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "value_var",
+					"value": {
+						"value": "@activity('Web1').output.value",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"p_key_valut_name": {
+				"type": "string",
+				"defaultValue": "adfinterviewvijay"
+			},
+			"p_secrect_info": {
+				"type": "string",
+				"defaultValue": "ADFdemoVijaySecrects/92e6af022a334a138c53fe910859df0d"
+			}
+		},
+		"variables": {
+			"value_var": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-09-15T11:38:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

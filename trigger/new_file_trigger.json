@@ -1,0 +1,17 @@
+{
+	"name": "new_file_trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_Sales_1.csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/03184a45-1ab6-4d6c-a726-dbe9b9530a7a/resourceGroups/RG-ADF_Course/providers/Microsoft.Storage/storageAccounts/storagedatafactoryvijay",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

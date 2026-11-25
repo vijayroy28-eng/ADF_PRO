@@ -1,0 +1,13 @@
+{
+	"name": "LS_rest_HTTP",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_rest_HTTP",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,389 @@
+{
+	"name": "Dynamic_mapping",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Metadata1",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_para_folder_V2",
+						"type": "DatasetReference",
+						"parameters": {
+							"folder": "trigger_data"
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata1').output.childItems",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_dynamic_copy1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"value": "@if(contains(item().name,'Sales'),pipeline().parameters.p_map_1,pipeline().parameters.p_map_2)",
+									"type": "Expression"
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_parameterized_V2",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_folder": "trigger_data",
+										"p_file": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "para_desti_V2",
+									"type": "DatasetReference",
+									"parameters": {
+										"folder": "Dynamic_mapping",
+										"file": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"container": "destination"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"p_map_2": {
+				"type": "object",
+				"defaultValue": {
+					"type": "TabularTranslator",
+					"mappings": [
+						{
+							"source": {
+								"name": "ProductKey",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductKey",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ProductSubcategoryKey",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductSubcategoryKey_VIJAY",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ProductSKU",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductSKU",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ProductName",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductName",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ModelName",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ModelName",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ProductDescription",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductDescription",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ProductColor",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductColor",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ProductSize",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductSize",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ProductStyle",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductStyle",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ProductCost",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductCost",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ProductPrice",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductPrice",
+								"type": "String",
+								"physicalType": "String"
+							}
+						}
+					],
+					"typeConversion": true,
+					"typeConversionSettings": {
+						"allowDataTruncation": true,
+						"treatBooleanAsNumber": false
+					}
+				}
+			},
+			"p_map_1": {
+				"type": "object",
+				"defaultValue": {
+					"type": "TabularTranslator",
+					"mappings": [
+						{
+							"source": {
+								"name": "OrderDate",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "OrderDate",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "StockDate",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "StockDate",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "OrderNumber",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "OrderNumber",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "ProductKey",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "ProductKey",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "CustomerKey",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "CustomerKey",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "TerritoryKey",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "TerritoryKey",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "OrderLineItem",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "OrderLineItem",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "OrderQuantity",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "OrderQuantity",
+								"type": "String",
+								"physicalType": "String"
+							}
+						}
+					],
+					"typeConversion": true,
+					"typeConversionSettings": {
+						"allowDataTruncation": true,
+						"treatBooleanAsNumber": false
+					}
+				}
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-09-16T07:10:48Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

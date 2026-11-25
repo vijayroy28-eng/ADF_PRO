@@ -1,0 +1,21 @@
+{
+	"name": "DS_HTTP_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_data_lake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "json_csv.json",
+				"folderPath": "api_HTTP_JSON",
+				"fileSystem": "source"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,16 @@
+{
+	"name": "rest_API_books",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Rest_API_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "api/books?bibkeys=ISBN:0201558025,LCCN:93005405&format=json"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

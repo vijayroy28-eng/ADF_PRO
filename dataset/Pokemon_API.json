@@ -1,0 +1,16 @@
+{
+	"name": "Pokemon_API",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Rest_API_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "?offset={offset}"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
