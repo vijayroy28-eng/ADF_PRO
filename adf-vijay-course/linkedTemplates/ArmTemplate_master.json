@@ -1,0 +1,284 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-vijay-course"
+		},
+		"ADF_Project_Linked_Service_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADF_Project_Linked_Service'"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+		},
+		"Azure_LS_Data_Lake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'Azure_LS_Data_Lake'"
+		},
+		"LS_DATA_BASE_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_DATA_BASE'"
+		},
+		"LS_Data_LAKE_v2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_Data_LAKE_v2'"
+		},
+		"LS_data_lake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_data_lake'"
+		},
+		"json_logs_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'json_logs'"
+		},
+		"linkedServiceDL_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'linkedServiceDL'"
+		},
+		"ADF_Project_Linked_Service_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"Azure_LS_Data_Lake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"HTTP_git_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/anshlambagit/AzureInterviewQuestions/refs/heads/main/orders_data.csv"
+		},
+		"LS_API_CONN_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com"
+		},
+		"LS_DATA_BASE_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "dbserverweejay.database.windows.net"
+		},
+		"LS_DATA_BASE_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dbprovijay"
+		},
+		"LS_DATA_BASE_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "adminvijay"
+		},
+		"LS_Data_LAKE_v2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"LS_data_lake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"LS_rest_HTTP_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/anshlambagit/AzureInterviewQuestions/refs/heads/main/orders_data.csv"
+		},
+		"Rest_API_LS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://pokeapi.co/api/v2/pokemon"
+		},
+		"json_logs_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"linkedServiceDL_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"linked_git_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com"
+		},
+		"new_file_trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/03184a45-1ab6-4d6c-a726-dbe9b9530a7a/resourceGroups/RG-ADF_Course/providers/Microsoft.Storage/storageAccounts/storagedatafactoryvijay"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adf-vijay-course_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ADF_Project_Linked_Service_accountKey": {
+						"value": "[parameters('ADF_Project_Linked_Service_accountKey')]"
+					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"AzureDataLakeStorage2_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					},
+					"Azure_LS_Data_Lake_accountKey": {
+						"value": "[parameters('Azure_LS_Data_Lake_accountKey')]"
+					},
+					"LS_DATA_BASE_password": {
+						"value": "[parameters('LS_DATA_BASE_password')]"
+					},
+					"LS_Data_LAKE_v2_accountKey": {
+						"value": "[parameters('LS_Data_LAKE_v2_accountKey')]"
+					},
+					"LS_data_lake_accountKey": {
+						"value": "[parameters('LS_data_lake_accountKey')]"
+					},
+					"json_logs_accountKey": {
+						"value": "[parameters('json_logs_accountKey')]"
+					},
+					"linkedServiceDL_accountKey": {
+						"value": "[parameters('linkedServiceDL_accountKey')]"
+					},
+					"ADF_Project_Linked_Service_properties_typeProperties_url": {
+						"value": "[parameters('ADF_Project_Linked_Service_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage2_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]"
+					},
+					"Azure_LS_Data_Lake_properties_typeProperties_url": {
+						"value": "[parameters('Azure_LS_Data_Lake_properties_typeProperties_url')]"
+					},
+					"HTTP_git_properties_typeProperties_url": {
+						"value": "[parameters('HTTP_git_properties_typeProperties_url')]"
+					},
+					"LS_API_CONN_properties_typeProperties_url": {
+						"value": "[parameters('LS_API_CONN_properties_typeProperties_url')]"
+					},
+					"LS_DATA_BASE_properties_typeProperties_server": {
+						"value": "[parameters('LS_DATA_BASE_properties_typeProperties_server')]"
+					},
+					"LS_DATA_BASE_properties_typeProperties_database": {
+						"value": "[parameters('LS_DATA_BASE_properties_typeProperties_database')]"
+					},
+					"LS_DATA_BASE_properties_typeProperties_userName": {
+						"value": "[parameters('LS_DATA_BASE_properties_typeProperties_userName')]"
+					},
+					"LS_Data_LAKE_v2_properties_typeProperties_url": {
+						"value": "[parameters('LS_Data_LAKE_v2_properties_typeProperties_url')]"
+					},
+					"LS_data_lake_properties_typeProperties_url": {
+						"value": "[parameters('LS_data_lake_properties_typeProperties_url')]"
+					},
+					"LS_rest_HTTP_properties_typeProperties_url": {
+						"value": "[parameters('LS_rest_HTTP_properties_typeProperties_url')]"
+					},
+					"Rest_API_LS_properties_typeProperties_url": {
+						"value": "[parameters('Rest_API_LS_properties_typeProperties_url')]"
+					},
+					"json_logs_properties_typeProperties_url": {
+						"value": "[parameters('json_logs_properties_typeProperties_url')]"
+					},
+					"linkedServiceDL_properties_typeProperties_url": {
+						"value": "[parameters('linkedServiceDL_properties_typeProperties_url')]"
+					},
+					"linked_git_properties_typeProperties_url": {
+						"value": "[parameters('linked_git_properties_typeProperties_url')]"
+					},
+					"new_file_trigger_properties_typeProperties_scope": {
+						"value": "[parameters('new_file_trigger_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "adf-vijay-course_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-vijay-course_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "adf-vijay-course_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-vijay-course_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "adf-vijay-course_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-vijay-course_ArmTemplate_2')]"
+			]
+		}
+	]
+}

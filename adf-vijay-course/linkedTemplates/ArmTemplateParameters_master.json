@@ -1,0 +1,93 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-vijay-course"
+		},
+		"ADF_Project_Linked_Service_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
+		"Azure_LS_Data_Lake_accountKey": {
+			"value": ""
+		},
+		"LS_DATA_BASE_password": {
+			"value": ""
+		},
+		"LS_Data_LAKE_v2_accountKey": {
+			"value": ""
+		},
+		"LS_data_lake_accountKey": {
+			"value": ""
+		},
+		"json_logs_accountKey": {
+			"value": ""
+		},
+		"linkedServiceDL_accountKey": {
+			"value": ""
+		},
+		"ADF_Project_Linked_Service_properties_typeProperties_url": {
+			"value": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"Azure_LS_Data_Lake_properties_typeProperties_url": {
+			"value": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"HTTP_git_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/anshlambagit/AzureInterviewQuestions/refs/heads/main/orders_data.csv"
+		},
+		"LS_API_CONN_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com"
+		},
+		"LS_DATA_BASE_properties_typeProperties_server": {
+			"value": "dbserverweejay.database.windows.net"
+		},
+		"LS_DATA_BASE_properties_typeProperties_database": {
+			"value": "dbprovijay"
+		},
+		"LS_DATA_BASE_properties_typeProperties_userName": {
+			"value": "adminvijay"
+		},
+		"LS_Data_LAKE_v2_properties_typeProperties_url": {
+			"value": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"LS_data_lake_properties_typeProperties_url": {
+			"value": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"LS_rest_HTTP_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/anshlambagit/AzureInterviewQuestions/refs/heads/main/orders_data.csv"
+		},
+		"Rest_API_LS_properties_typeProperties_url": {
+			"value": "https://pokeapi.co/api/v2/pokemon"
+		},
+		"json_logs_properties_typeProperties_url": {
+			"value": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"linkedServiceDL_properties_typeProperties_url": {
+			"value": "https://storagedatafactoryvijay.dfs.core.windows.net/"
+		},
+		"linked_git_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com"
+		},
+		"new_file_trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/03184a45-1ab6-4d6c-a726-dbe9b9530a7a/resourceGroups/RG-ADF_Course/providers/Microsoft.Storage/storageAccounts/storagedatafactoryvijay"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
