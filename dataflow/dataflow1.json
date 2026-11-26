@@ -5,14 +5,19 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"name": "source1"
+					"dataset": {
+						"referenceName": "Dynamic_DataSet",
+						"type": "DatasetReference"
+					},
+					"name": "DeltaSource"
 				}
 			],
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source1"
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DeltaSource"
 			]
 		}
 	}
