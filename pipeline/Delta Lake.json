@@ -17,7 +17,14 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "DeltaFlow",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"DeltaSource": {
+								"p_container": "source",
+								"p_folder": "Delta_Source",
+								"p_file": "locations.csv"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
