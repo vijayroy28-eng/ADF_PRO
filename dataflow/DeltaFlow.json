@@ -16,6 +16,9 @@
 			"transformations": [
 				{
 					"name": "UpperCaseState"
+				},
+				{
+					"name": "selectCols"
 				}
 			],
 			"scriptLines": [
@@ -33,7 +36,17 @@
 				"     ignoreNoFilesFound: false) ~> DeltaSource",
 				"DeltaSource derive(state = upper(state),",
 				"          longitude = round(longitude, 2, 2),",
-				"          current_date = currentDate('PST')) ~> UpperCaseState"
+				"          current_date = currentDate('PST')) ~> UpperCaseState",
+				"UpperCaseState select(mapColumn(",
+				"          location_id,",
+				"          city,",
+				"          state,",
+				"          country,",
+				"          last_updated_timestamp,",
+				"          current_date",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectCols"
 			]
 		}
 	}
