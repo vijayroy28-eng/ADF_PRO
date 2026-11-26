@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "DeltaFlow",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -13,11 +13,27 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "UpperCaseState"
+				}
+			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          location_id as short,",
+				"          city as string,",
+				"          state as string,",
+				"          country as string,",
+				"          latitude as double,",
+				"          longitude as double,",
+				"          last_updated_timestamp as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> DeltaSource"
+				"     ignoreNoFilesFound: false) ~> DeltaSource",
+				"DeltaSource derive(state = upper(state),",
+				"          longitude = round(longitude, 2, 2),",
+				"          current_date = currentDate('PST')) ~> UpperCaseState"
 			]
 		}
 	}
